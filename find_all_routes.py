@@ -38,7 +38,7 @@ def _recursive_find(graph, start, end, route, routes, visited, max_visit):
 
     # loops through all the nodes connected to the start node, and calls the recursive function on each of them
     for i in range (len(graph[start])):
-        recursive_find(graph, graph[start][i], end, new_route , routes, current_visited, max_visit)
+        _recursive_find(graph, graph[start][i], end, new_route , routes, current_visited, max_visit)
     return routes
     
 
