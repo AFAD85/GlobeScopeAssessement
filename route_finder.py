@@ -110,7 +110,7 @@ class RouteFinder():
         # If exact_stops is defined, call the _find_routes functions with the max_stops arguement, 
         # and after running removes the routes that do not meet the exact stops requirement
         if exact_stops:
-            possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=max_stops)
+            possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=exact_stops)
             
             # checks if the route lenght is equal to the exact_stops arguement, if not removes it from the list
             for route in possible_routes:
@@ -157,10 +157,8 @@ class RouteFinder():
         return routes
 
 
-
     def _recursive_find(self, graph, start, end, route, routes, visited, max_stops):
         
-
         # initializes the new_route list by copying the route list used to call the function
         new_route = route.copy()
         new_route.append(start)
