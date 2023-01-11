@@ -83,26 +83,43 @@ class RouteFinder():
         if not (max_stops or exact_stops or max_distance):
             return ValueError("Missing arguements, please define exactly one of max_stops, exact_stops or max_distance")
         
+        # Counter to check how many arguements have been defined
         args_count = 0
         
+        # Check if max_stops is defined
         if max_stops != None:
             args_count += 1
-            
+        
+        # Check if exact_stops is defined
         if exact_stops != None:
             args_count += 1
             
+        # Check if max_distance is defined
         if max_distance != None:
             args_count += 1
 
+        # If more than one arguement is defined, raise an error
         if args_count > 1:
             return ValueError("Too many arguements, please define exactly one of max_stops, exact_stops or max_distance")
-            
-        
 
+        # If max_stops is defined, call the _find_routes function with the max_stops arguement
         if max_stops:
             possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=max_stops)
             return possible_routes
         
+        # If exact_stops is defined, call the _find_routes functions with the max_stops arguement, 
+        # and after running removes the routes that do not meet the exact stops requirement
+        if exact_stops:
+            possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=max_stops)
+            
+            # checks if the route lenght is equal to the exact_stops arguement, if not removes it from the list
+            for route in possible_routes:
+                if len(route) != exact_stops:
+                    possible_routes.remove(route)
+                    
+            return possible_routes
+        
+        # If max_distance is defined, call the _find_routes function with the max_distance arguement
         if max_distance:
             possible_routes = self._find_routes(self.edges, self.start, self.end, max_distance=max_distance)
             return possible_routes
