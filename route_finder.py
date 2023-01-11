@@ -66,7 +66,7 @@ class RouteFinder():
                 sub_distance = self.edge_distances.get(town_pair)
                 distance += sub_distance
             else:
-                print("NO SUCH ROUTE")
+                return "NO SUCH ROUTE"
         return distance
             
         
@@ -201,7 +201,6 @@ class RouteFinder():
         for i in range (len(graph[start])):
             # keeps track of the number of nodes visited, and feed that number into the next recursive call
             current_distance = distance_travelled + self.get_route_distance(start+graph[start][i])
-            print(f"{new_route},{current_distance}")
             
             self._recursive_find_distance(graph, graph[start][i], end, new_route , routes, current_distance, max_distance)
             
