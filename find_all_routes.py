@@ -13,14 +13,15 @@ def find_routes(graph, start, end, routes=None, max_visit=3):
     route = []
     
     # calls the recursive function, which will find all the routes
-    recursive_find(graph, start, end, route, routes, 0, max_visit)
+    _recursive_find(graph, start, end, route, routes, 0, max_visit)
     print(routes)
 
     return routes
+
+
+def _recursive_find(graph, start, end, route, routes, visited, max_visit):
     
-def recursive_find(graph, start, end, route, routes, visited, max_visit):
-    
-    # initializes the route by copying the route
+    # initializes the new_route list by copying the route list used to call the function
     new_route = route.copy()
     new_route.append(start)
     
