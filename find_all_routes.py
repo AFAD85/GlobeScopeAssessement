@@ -1,6 +1,6 @@
 
 
-def find_routes(graph, start, end, routes=None, max_visit=3):
+def find_routes(graph, start, end, routes=None, max_visit=10):
 
     if routes is None:
         routes = []
@@ -28,7 +28,7 @@ def recursive_find(graph, start, end, route, routes, visited, max_visit):
     new_route.append(start)
     
     if start == end:
-        routes.append(route)
+        routes.append(new_route)
         
     if visited == max_visit:
         return
