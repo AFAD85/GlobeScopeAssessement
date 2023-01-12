@@ -13,7 +13,12 @@ class RouteFinder():
         self.edge_distances = dict()
         self.edges = dict()
         
-        
+    def __str__(self):
+        # this function determines what happens when the object is printed
+        return f"Route Finder: {self.name}\n This route finder has the following edges : {self.edges}\n and the following edge distances : {self.edge_distances}"
+    
+
+
     def add_edge(self, edge):
         
         # checks if the edge input is in the correct format
@@ -213,21 +218,22 @@ class RouteFinder():
         all_routes = self.get_possible_routes(Town1, Town2, max_stops=len(self.edges))
         route_distances = []
         
+        # loops through all the routes and finds the distance of each route
         for route in all_routes:
             route_string = ""
             for nodes in route:
                 route_string += nodes
             route_distances.append(self.get_route_distance(route_string))
         
-
+        # finds the shortest distance and returns that distance
         shortest_distance = route_distances[0]
         for distance in route_distances:
             if distance < shortest_distance:
                 shortest_distance = distance
         
-        shortest_route = all_routes[route_distances.index(shortest_distance)]
+        # shortest_route = all_routes[route_distances.index(shortest_distance)]
         
-        return shortest_route, shortest_distance
+        return shortest_distance
         
         
         
