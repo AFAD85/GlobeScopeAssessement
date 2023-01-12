@@ -1,2 +1,0 @@
-# GlobeScopeAssessement
-Assessement for GlobeScope
