@@ -1,11 +1,13 @@
 from route_finder import RouteFinder
 
 def main():
-    # initialize the test route finder object
+    # this function tests the RouteFinder class and its functions on the use case as presented in the assessment description
+    
+    
+    # initialize the route finder test object
     test_route_finder = RouteFinder()
 
-def setup_test_route_finder():
-
+    
     # keeps track of error count
     errors = 0
     
@@ -19,7 +21,6 @@ def setup_test_route_finder():
     test_route_finder.add_edge("EB3")      
     test_route_finder.add_edge("AE7")
 
-def test_add_edge_valid_input():
     
     # inputs edge AB with distance 5 into the test object
     test_route_finder.add_edge("AB5")
@@ -33,60 +34,73 @@ def test_add_edge_valid_input():
     if test_route_finder.edge_distances["AB"] != 5:
         print("Error : The edge AB5 was not correctly added to the edge_distances dictionary")
         errors += 1
-        
-def test_get_route_distance_valid_input():
-    # this function tests the get_route_distance function and stores the results of the function calls for use in program validation
-            
-    # tests wether the distance of route ABC is correctly computed and stores it in variable solution_1
-    solution_1 = test_route_finder.get_route_distance("ABC")
-    if solution_1 != 9:
+
+    # tests 1 through 4 test the distance finder with valid input
+
+    # tests wether the distance of route ABC is correctly computed and stores it in variable test_1
+    test_1 = test_route_finder.get_route_distance("ABC")
+    if test_1 != 9:
         print( "Error : The distance of the route ABC is not correct")
         errors += 1
         
-    # tests wether the distance of route AD is correctly computed and stores it in variable solution_2
-    solution_2 = test_route_finder.get_route_distance("AD")
-    if solution_2 != 5:
+    # tests wether the distance of route AD is correctly computed and stores it in variable test_2
+    test_2 = test_route_finder.get_route_distance("AD")
+    if test_2 != 5:
         print("Error : The distance of the route AD is not correct")
         errors += 1
         
-    # tests wether the distance of route ADC is correctly computed and stores it in variable solution_3
-    solution_3 = test_route_finder.get_route_distance("ADC")
-    if solution_3 != 13:
+    # tests wether the distance of route ADC is correctly computed and stores it in variable test_3
+    test_3 = test_route_finder.get_route_distance("ADC")
+    if test_3 != 13:
         print("Error : The distance of the route ADC is not correct")
         errors += 1
         
-    # tests wether the distance of route AEBCD is correctly computed and stores it in variable solution_4
-    solution_4 = test_route_finder.get_route_distance("AEBCD")
-    if solution_4 != 22:
+    # tests wether the distance of route AEBCD is correctly computed and stores it in variable test_4
+    test_4 = test_route_finder.get_route_distance("AEBCD")
+    if test_4 != 22:
         print("Error : The distance of the route AEBCD is not correct")
         errors += 1
     
-def test_get_route_distance_invalid_input():
-    # this function tests the get_route_distance function with invalid input and stores the results of the function call for use in program validation
 
-    # tests wether the distance of route AEBCD is correctly computed and stores it in variable solution_4
-    solution_5 = test_route_finder.get_route_distance("AED")
-    if solution_5 != "NO SUCH ROUTE":
+    # test 5 tests the get_route_distance function with invalid input and stores the results of the function call for use in program validation
+
+    # tests wether the distance of route AEBCD is correctly computed and stores it in variable test_4
+    test_5 = test_route_finder.get_route_distance("AED")
+    if test_5 != "NO SUCH ROUTE":
         print("Error : The distance of the route AED is not correct")
         
-def test_get_possible_routes_max_stops():
-    # this function tests the get_possible routes function with max_stops defined and stores the results of the function call for use in program validation
 
-    solution_6 = len(test_route_finder.get_possible_routes("C", "C", max_stops=3))
-    if solution_6 != 2:
+    # test 6 tests the get_possible routes function with max_stops defined and stores the results of the function call for use in program validation
+
+    test_6 = len(test_route_finder.get_possible_routes("C", "C", max_stops=3))
+    if test_6 != 2:
         print("Error : The routes between nodes C and C given 3 maximum stops have not been found correctly")
 
-def test_get_possible_routes_max_stops():
-    # this function tests the get_possible routes function with max_stops defined and stores the results of the function call for use in program validation
-    solution_7 = len(test_route_finder.get_possible_routes("A", "C", exact_stops=4))
-    if solution_7 !=2:
+
+    # test 7 tests the get_possible routes function with max_stops defined and stores the results of the function call for use in program validation
+    test_7 = len(test_route_finder.get_possible_routes("A", "C", exact_stops=4))
+    if test_7 !=2:
         print("Error : The routes between nodes A and C given exactly 4 stops have not been found correctly")
     
-def test_get_shortest_route(self):
-solution_8 = test_routefinder.get_shortest_route("A", "C")
-solution_9 = test_routefinder.get_shortest_route("B", "B")
-solution_10 = len(test_routefinder.get_possible_routes("C", "C", max_distance=30))
-print(f"Output #1 :{solution_1}\n Output #2 : {solution_2}\n Output #3 : {solution_3}\n Output #4 : {solution_4}\n Output #5 : {solution_5}\n Output #6 : {solution_6}\n Output #7 : {solution_7}\n Output #8 : {solution_8}\n Output #9 : {solution_9} \n Output #10 : {solution_10}")
+    
+    # tests 8 and 9 test the get_shortest_route function with valid input and stores the results of the function call for use in program validation
+
+    test_8 = test_routefinder.get_shortest_route("A", "C")
+    if test_8 != 9:
+        print("Error : The shortest route between nodes A and C has not been found correctly")
+    
+    test_9 = test_routefinder.get_shortest_route("B", "B")
+    if test_9 != 9:
+        print("Error : The shortest route between nodes B and B has not been found correctly")
+        
+    # test 10 tests the get_possible routes function with max_distance defined and stores the results of the function call for use in program validation
+    test_10 = len(test_routefinder.get_possible_routes("C", "C", max_distance=30))
+    if test_10 != 7:
+        print("Error : The number of routes between nodes C and C given a maximum distance of 30 have not been found correctly")
+
+
+
+    print(f"Output #1 :{test_1}\n Output #2 : {test_2}\n Output #3 : {test_3}\n Output #4 : {test_4}\n Output #5 : {test_5}\n Output #6 : {test_6}\n Output #7 : {test_7}\n Output #8 : {test_8}\n Output #9 : {test_9} \n Output #10 : {test_10}")
 
 
 
