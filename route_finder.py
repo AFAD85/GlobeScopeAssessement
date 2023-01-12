@@ -25,28 +25,28 @@ class RouteFinder():
         if re.match(r'^[A-E]{2}[0-9]$', edge):
             
             # creates variables to store the edge name and distance
-            self.edge_distances_key = str()
-            self.edge_distances_value = 0
+            edge_distances_key = str()
+            edge_distances_value = 0
             
-            # adds the node letters to the edge distances dictionary as key, and the distance as value
+            # adds the nodes to the edge distances dictionary as key, and the distance as value
             for character in edge:
 
                 digits = '0123456789'
                 
-                # finds the digits in the edge string and adds them to the value variable
+                # finds the digits in the end of the edge string and adds them to the value variable
                 if character in digits:
-                    self.edge_distances_value += int(character)
+                    edge_distances_value += int(character)
                     
                 else:
-                    self.edge_distances_key += character
+                    edge_distances_key += character
                     
                     
             # checks if the start node is already in the edges dictionary, if not it adds it as a key with the end node as a value 
             if not edge[0] in self.edges.keys():
                 
-                self.edges_key = edge[0]
-                self.edges_value = [edge[1]]
-                self.edges.update({self.edges_key : self.edges_value})
+                edges_key = edge[0]
+                edges_value = [edge[1]]
+                self.edges.update({edges_key : edges_value})
             
             else:
                 self.edges[edge[0][0]].append(edge[1])
@@ -78,11 +78,11 @@ class RouteFinder():
     def get_possible_routes(self, Town1, Town2, max_stops=None, exact_stops=None, max_distance=None):
         
         # finds all possible routes between two towns, optionally with a maximum number of stops, exact number of stops, or maximum distance
-        self.start = Town1
-        self.end = Town2
-        self.max_stops = max_stops
-        self.exact_stops = exact_stops
-        self.max_distance = max_distance
+        start = Town1
+        end = Town2
+        max_stops = max_stops
+        exact_stops = exact_stops
+        max_distance = max_distance
         
         # User should define either max_stops, exact_stops or max_distance
         if not (max_stops or exact_stops or max_distance):
@@ -109,13 +109,13 @@ class RouteFinder():
 
         # If max_stops is defined, call the _find_routes function with the max_stops arguement
         if max_stops:
-            possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=max_stops)
+            possible_routes = self._find_routes(self.edges, start, end, max_stops=max_stops)
             return possible_routes
         
         # If exact_stops is defined, call the _find_routes functions with the max_stops arguement, 
         # and after running removes the routes that do not meet the exact stops requirement
         if exact_stops:
-            possible_routes = self._find_routes(self.edges, self.start, self.end, max_stops=exact_stops)
+            possible_routes = self._find_routes(self.edges, start, end, max_stops=exact_stops)
             
             # checks if the route lenght is equal to the exact_stops arguement, if not removes it from the list
             for route in possible_routes:
@@ -126,7 +126,7 @@ class RouteFinder():
         
         # If max_distance is defined, call the _find_routes function with the max_distance arguement
         if max_distance:
-            possible_routes = self._find_routes(self.edges, self.start, self.end, max_distance=max_distance)
+            possible_routes = self._find_routes(self.edges, start, end, max_distance=max_distance)
             return possible_routes
         
         
