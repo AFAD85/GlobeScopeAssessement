@@ -1,0 +1,22 @@
+
+Design
+
+I went with a barebones design in the sense that I attempted to make the program as lean as possible.
+
+As such I defined only 1 class namely RouteFinder
+
+This class creates an object which has 2 libraries. One containing all edges without distances for use in the search algoritm. The other containing all edges with distances for use in distance calculations.
+
+The search algoritm (get_possible_routes) is the core of the program. It finds all routes between two nodes using a recursive function. Either one that is limited by the amount of nodes it can visit (max_stops) or one that is limited by the total amount of distance traveled (max_distance). Respectively these functions are : recursive_find and _recursive_find_distance.
+
+For both the max amount of stops and the exact amount of stops the same function (_recurisve_find) is used, for exact stops it simply removes the routes that do not conform to the requirement.
+
+The algorithm takes an entry node, checks which edges it can find, follows the first edge, then checks the now current node, and if available follows its first edge. It does this untill it reaches a predefined end node, or it exceeds the max_stops or max_distance. It then stores this route or deletes it, and repeats the process untill all possible options have been exhausted, and thus all routes have been found.
+
+In case of the max_distance being requested, the algorithm keeps track of the distance it has travelled and uses that instead of the amount of nodes it has visited to determine where to stop.
+
+Finally the shortest route uses the find all routes function with a max stops of the total amount of nodes in the graph. As the shortest route can not exceed this amount of stops. It then finds the shortest route amongst there routes.
+
+Assumptions
+
+I assumed this program will see no use other than a demonstration of my aptitude for the position at GlobeScope. As such I did not take into account different input formats. Such as for example changing the program to use city names instead of ABCD or E. Or allowing for use cases outside the scope of the assignment.
