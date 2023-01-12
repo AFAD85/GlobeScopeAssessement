@@ -3,7 +3,8 @@ import unittest
 
 
 class RouteFinder():
-    
+
+ 
     def __init__(self, name):
         self.name = name
         
@@ -16,7 +17,6 @@ class RouteFinder():
     def __str__(self):
         # this function determines what happens when the object is printed
         return f"Route Finder: {self.name}\n This route finder has the following edges : {self.edges}\n and the following edge distances : {self.edge_distances}"
-    
 
 
     def add_edge(self, edge):
@@ -53,13 +53,14 @@ class RouteFinder():
             
 
                     
-            self.edge_distances.update({self.edge_distances_key : self.edge_distances_value})
+            self.edge_distances.update({edge_distances_key : edge_distances_value})
 
         else:
             print("Error: Invalid input, please enter in the form of two capital letters A-E followed by an integer 0-9")
         
         
     def get_route_distance(self, nodes):
+        
         distance = 0
         
         # splits the nodes string into pairs of 2 
@@ -103,7 +104,7 @@ class RouteFinder():
         if max_distance != None:
             args_count += 1
 
-        # If more than one arguement is defined, raise an error
+        # If more than one arguement is defined, raises an error
         if args_count > 1:
             return ValueError("Too many arguements, please define exactly one of max_stops, exact_stops or max_distance")
 
@@ -131,8 +132,6 @@ class RouteFinder():
         
         
     def _find_routes(self, graph, start, end, routes=None, max_stops=None, max_distance=None):
-    
-    
 
         # initializes the routes list if it isn't already made
         if routes is None:
@@ -152,6 +151,7 @@ class RouteFinder():
             # if max distance is set calls the recursive_find_distance function, which will find all the routes, that adhere to the max distance
             self._recursive_find_distance(graph, start, end, route, routes, 0, max_distance)
             
+            # ensures that no duplicate routes are stored in the list
             new_routes = []
             for i in range(len(routes)):
                 if routes[i] not in new_routes:
@@ -199,14 +199,11 @@ class RouteFinder():
         if start == end and distance_travelled > 0:
             routes.append(new_route)
         
-
-        
-
         # loops through all the nodes connected to the start node, and calls the recursive function on each of them
         for i in range (len(graph[start])):
             # keeps track of the number of nodes visited, and feed that number into the next recursive call
             current_distance = distance_travelled + self.get_route_distance(start+graph[start][i])
-            
+            # calls the recursive function on the next node
             self._recursive_find_distance(graph, graph[start][i], end, new_route , routes, current_distance, max_distance)
             
         return routes
