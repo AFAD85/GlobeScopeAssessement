@@ -53,7 +53,7 @@ class GraphCreator():
     
     def __str__(self):
         # this function determines what happens when the object is printed
-        return f"Route Finder: {self.name}\n This route finder has the following edges : {self.edges}\n and the following edge distances : {self.edge_distances}"
+        return f"Graph: {self.name}\n This graph has the following edges : {self.edges}\n and the following edge distances : {self.edge_distances}"
     
     
     

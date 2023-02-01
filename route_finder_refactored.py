@@ -10,7 +10,9 @@ class RouteFinder():
 
         
     def get_route_distance(self, nodes):
-        
+        """
+        Returns the distance of a route, requires a string of nodes in the form of "ABCD"
+        """
         distance = 0
         
         # splits the nodes string into pairs of 2 
@@ -28,7 +30,9 @@ class RouteFinder():
             
         
     def get_possible_routes(self, Town1, Town2, max_stops=None, exact_stops=None, max_distance=None):
-        
+        """
+        Finds all possible nodes between two towns, 1 arguement should be defined out of:  maximum stops, exact stops, or maximum distance
+        """
         # finds all possible routes between two towns, optionally with a maximum number of stops, exact number of stops, or maximum distance
         start = Town1
         end = Town2
@@ -119,10 +123,13 @@ class RouteFinder():
 
 
         
-    def get_shortest_route(self, Town1, Town2):
+    def get_shortest_route(self, Node_1, Node_2):
+        """
+        Finds the shortest route between Node 1 and Node 2
+        """
         # first finds all routes between the two towns(nodes) with the max amount of stops set to the number of nodes in the graph
         # then finds the shortest route by comparing the distances of each route
-        all_routes = self.get_possible_routes(Town1, Town2, max_stops=len(self.graph.edges))
+        all_routes = self.get_possible_routes(Node_1, Node_2, max_stops=len(self.graph.edges))
         route_distances = []
         
         # loops through all the routes and finds the distance of each route
