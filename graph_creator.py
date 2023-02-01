@@ -31,16 +31,19 @@ class GraphCreator():
             
             # checks if the start node of the edge is already known in the edges dictionary, if not adds it and the corresponding edge
             if edge[0] not in self.edges:
+                
                 self.edges[edge[0]] = [edge[1]]
             
             # if the start node is already known, adds the new edge
             else:
+                
                 self.edges[edge[0]].append(edge[1])
             
             # adds the input to the edge_distances dictionary
             self.edge_distances[edge_distances_key] = edge_distances_value
             
         else:
+            
             print("Error: Invalid input, please enter in the form of two capital letters A-E followed by an integer 0-9")
             
     def get_edges_dict(self):

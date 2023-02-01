@@ -57,6 +57,7 @@ class RouteFinder():
         if max_stops:
             
             possible_routes = self._find_routes(self.graph.edges, start, end, max_stops=max_stops)
+            
             return possible_routes
         
         # If exact_stops is defined, call the _find_routes functions with the max_stops arguement, 
@@ -78,6 +79,7 @@ class RouteFinder():
         if max_distance:
             
             possible_routes = self._find_routes(self.graph.edges, start, end, max_distance=max_distance)
+            
             return possible_routes
         
         
@@ -85,14 +87,17 @@ class RouteFinder():
 
         # initializes the routes list if it isn't already made
         if routes is None:
+            
             routes = []
         
         # checks to see if the start is a node in the graph
         if not start in graph:
+            
             return ValueError("Start town not in routefinder")
         
         route = []
         if max_stops:
+            
             # if max stop is set, calls the recursive_find function, which will find all the routes, that adhere to the max stops
             self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
             return routes
@@ -132,7 +137,7 @@ class RouteFinder():
         # loops through all the nodes connected to the start node, and calls the recursive function on each of them
         for i in range (len(graph[start])):
             
-            self._recursive_find(graph, graph[start][i], end, new_route , routes, visited+1, max_stops, distance_travelled+self.get_route_distance(start+graph[start][i]), max_distance)
+            self._recursive_find(graph, graph[start][i], end, new_route , routes, visited+1, max_stops, distance_travelled + self.get_route_distance(start+graph[start][i]), max_distance)
             
         return routes
 
@@ -155,6 +160,7 @@ class RouteFinder():
             
             # finds all the distances between each node in the route and adds them together
             for i in range(len(route) - 1):
+                
                 route_distance += self.get_route_distance(route[i] + route[i + 1])
             
             # stores total distance of the route
