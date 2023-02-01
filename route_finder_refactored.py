@@ -3,10 +3,11 @@ import re
 
 class RouteFinder():
 
- 
+
     def __init__(self, name, graph):
         self.name = name
         self.graph = graph
+
 
         
     def get_route_distance(self, nodes):
@@ -32,17 +33,12 @@ class RouteFinder():
             
         return distance
             
+            
         
-    def get_possible_routes(self, Town1, Town2, max_stops=None, exact_stops=None, max_distance=None):
+    def get_possible_routes(self, start, end, max_stops=None, exact_stops=None, max_distance=None):
         """
         Finds all possible nodes between two towns, 1 arguement should be defined out of:  maximum stops, exact stops, or maximum distance
         """
-        # finds all possible routes between two towns, optionally with a maximum number of stops, exact number of stops, or maximum distance
-        start = Town1
-        end = Town2
-        max_stops = max_stops
-        exact_stops = exact_stops
-        max_distance = max_distance
         
         # User should define either max_stops, exact_stops or max_distance
         # if none are defined or too many are defined an error is raised
@@ -60,8 +56,7 @@ class RouteFinder():
             
             return possible_routes
         
-        # If exact_stops is defined, call the _find_routes functions with the max_stops arguement, 
-        # and after running removes the routes that do not meet the exact stops requirement
+        # If exact_stops is defined, call the _find_routes functions with the max_stops arguement
         if exact_stops:
             
             possible_routes = self._find_routes(self.graph.edges, start, end, max_stops=exact_stops)
@@ -83,6 +78,7 @@ class RouteFinder():
             return possible_routes
         
         
+        
     def _find_routes(self, graph, start, end, routes=None, max_stops=None, max_distance=None):
 
         # initializes the routes list if it isn't already made
@@ -91,9 +87,9 @@ class RouteFinder():
             routes = []
         
         # checks to see if the start is a node in the graph
-        if not start in graph:
+        if not start in self.graph.edges:
             
-            return ValueError("Start town not in routefinder")
+            return ValueError("Start node not in graph")
         
         route = []
         if max_stops:
@@ -108,6 +104,8 @@ class RouteFinder():
             self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
 
         return routes
+
+
 
     def _recursive_find(self, graph, start, end, route, routes, visited, max_stops, distance_travelled, max_distance):
 
@@ -135,14 +133,14 @@ class RouteFinder():
 
 
         
-    def get_shortest_route(self, Node_1, Node_2):
+    def get_shortest_route(self, start, end):
         """
         Finds the shortest route between Node 1 and Node 2
         """
         
         # first finds all routes between the two towns(nodes) with the max amount of stops set to the number of nodes in the graph
         # then finds the shortest route by comparing the distances of each route
-        all_routes = self.get_possible_routes(Node_1, Node_2, max_stops=len(self.graph.edges))
+        all_routes = self.get_possible_routes(start, end, max_stops=len(self.graph.edges))
         route_distances = []
         
         # loops through all the routes and finds the distance of each route, stores those distances in the route_distances list
