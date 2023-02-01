@@ -100,7 +100,7 @@ class RouteFinder():
 
         # depending on wether max stops or max distance is defined, the function will either check the number of stops or the distance travelled
         # and in case either of these is passed the max, the function will return
-        if (max_stops and visited >= max_stops) or (max_distance and distance_travelled >= max_distance):
+        if (max_stops and visited > max_stops) or (max_distance and distance_travelled > max_distance):
             return
         
         # initializes the new_route list by copying the route list used to call the function
