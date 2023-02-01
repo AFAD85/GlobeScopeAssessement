@@ -100,20 +100,12 @@ class RouteFinder():
             
             # if max stop is set, calls the recursive_find function, which will find all the routes, that adhere to the max stops
             self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
-            return routes
+
         
         if max_distance:
-            # if max distance is set calls the recursive_find_distance function, which will find all the routes, that adhere to the max distance
-            self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
             
-            # ensures that no duplicate routes are stored in the list
-            new_routes = []
-            for i in range(len(routes)):
-                
-                if routes[i] not in new_routes:
-                    new_routes.append(routes[i])
-                    
-            return new_routes
+            # if max distance is set calls the recursive_find function, which will find all the routes, that adhere to the max distance
+            self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
 
         return routes
 
