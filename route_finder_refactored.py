@@ -118,7 +118,7 @@ class RouteFinder():
         return routes
 
 
-
+        
     def get_shortest_route(self, Town1, Town2):
         # first finds all routes between the two towns(nodes) with the max amount of stops set to the number of nodes in the graph
         # then finds the shortest route by comparing the distances of each route
@@ -127,21 +127,13 @@ class RouteFinder():
         
         # loops through all the routes and finds the distance of each route
         for route in all_routes:
-            route_string = ""
-            for nodes in route:
-                route_string += nodes
-            route_distances.append(self.get_route_distance(route_string))
+            route_distance = 0
+            for i in range(len(route) - 1):
+                route_distance += self.get_route_distance(route[i] + route[i + 1])
+            route_distances.append(route_distance)
         
         # finds the shortest distance and returns that distance
-        shortest_distance = route_distances[0]
-        for distance in route_distances:
-            if distance < shortest_distance:
-                shortest_distance = distance
-        
-        # shortest_route = all_routes[route_distances.index(shortest_distance)]
-        
-        return shortest_distance
-        
+        return min(route_distances)
         
         
                 
