@@ -79,12 +79,12 @@ class RouteFinder():
         route = []
         if max_stops:
             # if max stop is set, calls the recursive_find function, which will find all the routes, that adhere to the max stops
-            self._recursive_find(graph, start, end, route, routes, 0, max_stops)
+            self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
             return routes
         
         if max_distance:
             # if max distance is set calls the recursive_find_distance function, which will find all the routes, that adhere to the max distance
-            self._recursive_find_distance(graph, start, end, route, routes, 0, max_distance)
+            self._recursive_find(graph, start, end, route, routes, 0, max_stops, 0, max_distance)
             
             # ensures that no duplicate routes are stored in the list
             new_routes = []
@@ -96,8 +96,12 @@ class RouteFinder():
 
         return routes
 
+    def _recursive_find(self, graph, start, end, route, routes, visited, max_stops, distance_travelled, max_distance):
 
-    def _recursive_find(self, graph, start, end, route, routes, visited, max_stops):
+        # depending on wether max stops or max distance is defined, the function will either check the number of stops or the distance travelled
+        # and in case either of these is passed the max, the function will return
+        if (max_stops and visited >= max_stops) or (max_distance and distance_travelled >= max_distance):
+            return
         
         # initializes the new_route list by copying the route list used to call the function
         new_route = route.copy()
@@ -105,44 +109,14 @@ class RouteFinder():
         
         # checks to see if the route is complete, if so adds the new route to the list of routes    
         if start == end and visited > 0:
-            routes.append(new_route)
-        
-        # checks to see if the max number of visits has been reached, if so ends the function call    
-        if visited == max_stops:
-            return
-        
-        # keeps track of the number of nodes visited, and feed that number into the next recursive call
-        current_visited = visited+1
+            routes.append(new_route) 
 
         # loops through all the nodes connected to the start node, and calls the recursive function on each of them
         for i in range (len(graph[start])):
-            self._recursive_find(graph, graph[start][i], end, new_route , routes, current_visited, max_stops)
+            self._recursive_find(graph, graph[start][i], end, new_route , routes, visited+1, max_stops, distance_travelled+self.get_route_distance(start+graph[start][i]), max_distance)
             
         return routes
 
-
-    def _recursive_find_distance(self, graph, start, end, route, routes, distance_travelled, max_distance):
-        
-        # checks to see if the max number of visits has been reached, if so ends the function call    
-        if distance_travelled >= max_distance:
-            return
-        
-        # initializes the new_route list by copying the route list used to call the function
-        new_route = route.copy()
-        new_route.append(start)
-        
-        # checks to see if the route is complete, if so adds the new route to the list of routes    
-        if start == end and distance_travelled > 0:
-            routes.append(new_route)
-        
-        # loops through all the nodes connected to the start node, and calls the recursive function on each of them
-        for i in range (len(graph[start])):
-            # keeps track of the number of nodes visited, and feed that number into the next recursive call
-            current_distance = distance_travelled + self.get_route_distance(start+graph[start][i])
-            # calls the recursive function on the next node
-            self._recursive_find_distance(graph, graph[start][i], end, new_route , routes, current_distance, max_distance)
-            
-        return routes
 
 
     def get_shortest_route(self, Town1, Town2):

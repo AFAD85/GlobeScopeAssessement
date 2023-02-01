@@ -14,7 +14,8 @@ import re
 
 class GraphCreator():
     
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
         self.edge_distances = dict()
         self.edges = dict()
 
