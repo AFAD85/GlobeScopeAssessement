@@ -64,9 +64,6 @@ from route_finder import RouteFinder
 
 def main():
 
-    
-    
-    
     # initialize the route finder test object
     test_route_finder = RouteFinder("test_route_finder")
     print("Running tests on RouteFinder class\n")
